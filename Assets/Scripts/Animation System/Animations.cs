@@ -12,6 +12,8 @@ public class Animations : MonoBehaviour
         {
             if (!_animationsUI)
             {
+                if (animationsUIPrefab == null)
+                    animationsUIPrefab = Resources.Load<AnimationsUI>("Prefabs/Animations UI");
                 _animationsUI = Instantiate(animationsUIPrefab, UIManager.instance.canvas.transform);
             }
             return _animationsUI;

@@ -28,18 +28,14 @@ public class PlayerEquipmentController : MonoBehaviour
 
     [Space(5)]
     [Header("Stats")]
-    public int gold = 1000;
     public float hp, _hp;
-    public float mp, _mp;
-    public float ap;
-    public float dp;
 
     private void Start()
     {
         _hp = 1000;
         hp = _hp;
         animator = GetComponent<Animator>();
-
+        animations = Util.createPrefabs<Animations>("Animations");        
         UIManager.instance.load();       
 
         inventory.init(this);        

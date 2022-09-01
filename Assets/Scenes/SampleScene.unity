@@ -538,51 +538,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2145525608
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2145525610}
-  - component: {fileID: 2145525609}
-  m_Layer: 0
-  m_Name: Animations for test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2145525609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145525608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3c0139bf32f004287cf934cd9d9378, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationsUIPrefab: {fileID: -1160185662275985138, guid: fb9d2c53cf3549342b3328cffa28dc2f, type: 3}
---- !u!4 &2145525610
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145525608}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 477, y: 305, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &366175169195587715 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1204697415495946204, guid: 8dfbb947358bce14bb1508af830fb99b, type: 3}
@@ -627,18 +582,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: d66e97df1a982de4ab9c48b8d3dcd2b3, type: 2}
   animator: {fileID: 0}
-  animations: {fileID: 2145525609}
+  animations: {fileID: 0}
   helmetAnchor: {fileID: 8700783697214282090}
   leftHandAnchor: {fileID: 6502182840568282415}
   rightHandAnchor: {fileID: 1852576805618128676}
   armorAnchor: {fileID: 366175169195587715}
-  gold: 1000
   hp: 0
   _hp: 0
-  mp: 0
-  _mp: 0
-  ap: 0
-  dp: 0
 --- !u!1001 &1559120179765393247
 PrefabInstance:
   m_ObjectHideFlags: 0

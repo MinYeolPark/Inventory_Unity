@@ -36,6 +36,8 @@ public class MainCamera : MonoBehaviour
         setResolutionClip(devWidth, devHeight);
 
         updateMouse();
+        //updateKeyboard();
+        //updateWheel();
     }
 
     private void LateUpdate()
@@ -108,7 +110,7 @@ public class MainCamera : MonoBehaviour
         if (methodKeyboard == null)
             return;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < kc.Length; i++)
         {
             KeyCode c = kc[i];
 
@@ -123,7 +125,9 @@ public class MainCamera : MonoBehaviour
     private KeyCode[] kc = new KeyCode[]
     {
         KeyCode.LeftArrow, KeyCode.RightArrow,
-        KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.Space
+        KeyCode.UpArrow, KeyCode.DownArrow,
+        KeyCode.I,
+        KeyCode.Space
     };
 
 
