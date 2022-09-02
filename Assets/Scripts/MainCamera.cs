@@ -68,6 +68,7 @@ public class MainCamera : MonoBehaviour
             }
 
             Vector3 v = Input.mousePosition;
+            Debug.LogFormat($"Moved  Vector2 = {v.x},{v.y}");
             drag = true;
             prevV = Input.mousePosition;// 누르자 말자 Moved 안들어오게 방지
             if (methodMouse != null)
@@ -88,7 +89,6 @@ public class MainCamera : MonoBehaviour
             if (prevV == v)
                 return;
             prevV = v;
-            //Debug.LogFormat($"Moved  Vector2 = {Input.mousePosition.x},{Input.mousePosition.y} =>p({p.x},{p.y})");
 
             if (methodMouse != null)
                 methodMouse(iKeystate.Moved, v);

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c7981beb2ffed4093edf957dc25215, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
+  description: Deffense + 10
   itemPrefab: {fileID: 417086830423974362, guid: c5409836a648a904dad5ed3e21311161, type: 3}
   itemSprite: {fileID: 21300000, guid: b5d2aee92894ae04982dfed8f09c69b6, type: 3}
   itemName: Shield

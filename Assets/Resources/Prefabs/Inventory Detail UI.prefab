@@ -87,9 +87,9 @@ GameObject:
   - component: {fileID: 4724159551095580939}
   - component: {fileID: 2688981435417849106}
   - component: {fileID: 6679225343334351075}
-  - component: {fileID: 6932417394771353101}
+  - component: {fileID: 390658252417491978}
   m_Layer: 0
-  m_Name: Item Info UI
+  m_Name: Inventory Detail UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6932417394771353101
+--- !u!114 &390658252417491978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,13 +166,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3342050115743041943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e36342df991cb44d98dd2da99d7651a, type: 3}
+  m_Script: {fileID: 11500000, guid: 49d5318099ae668498af1ce92e3d01cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  style: 2
+  state: 2
+  openPoint: {x: 0, y: 0}
+  closePoint: {x: 0, y: 0}
+  aniDt: 0
+  _aniDt: 0.5
+  selected: -1
+  bShow: 0
 --- !u!1 &4492333425370243515
 GameObject:
   m_ObjectHideFlags: 0

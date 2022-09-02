@@ -13,10 +13,30 @@ public class UIManager : MonoBehaviour
                 return _instance;
             return _instance;
         }
+
+    }
+    public float timer = 0f;
+    public float sensitivity = 0.25f;
+    [SerializeField] private Tooltip tooltipPrefab;
+    private Tooltip _tooltip;
+    private Tooltip tooltip
+    {
+        get
+        {
+            if (!_tooltip)
+            {
+                if (tooltipPrefab == null)
+                {
+                    tooltipPrefab = Resources.Load<Tooltip>("Prefabs/Tooltip");
+                }
+                _tooltip = Instantiate(tooltipPrefab, UIManager.instance.canvas.transform);
+            }
+            return _tooltip;
+        }
     }
     private void Awake()
     {
-        _instance = this;
+        _instance = this;        
     }
 
     public Canvas canvas;
@@ -62,6 +82,9 @@ public class UIManager : MonoBehaviour
         RectTransform rt;
         rt = go.transform.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(512, 512);
-        rt.anchoredPosition = new Vector2(0, 0);        
+        rt.anchoredPosition = new Vector2(0, 0);
+
+        //Tooltip
+        tooltip.init();
     }
 }

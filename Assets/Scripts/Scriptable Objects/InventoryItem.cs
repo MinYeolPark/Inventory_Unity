@@ -2,6 +2,11 @@ using UnityEngine;
 
 public abstract class InventoryItem : ScriptableObject
 {
+    [Header("itemDetail")]
+    [Multiline]
+    [SerializeField] private string description;
+
+    [Header("itemData")]
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Sprite itemSprite;
     [SerializeField] private string itemName;

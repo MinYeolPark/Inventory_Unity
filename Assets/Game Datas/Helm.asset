@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295d9e1410e45954a900d6b4d476d364, type: 3}
   m_Name: Helm
   m_EditorClassIdentifier: 
+  description: Defense +10
   itemPrefab: {fileID: 8869293982486011090, guid: 2bce92e196c9eac4d981d46d2fdfda99, type: 3}
   itemSprite: {fileID: 21300000, guid: a5cc0cdc11068c64ba7c980e43719317, type: 3}
   itemName: Helm
   itemLocalPosition: {x: 0, y: -0.22, z: -0.045}
   itemLocalRotation: {x: 0, y: 0, z: 0}
+  armorType: 0

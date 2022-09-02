@@ -38,6 +38,10 @@ public class InventoryUI : iPopupAnimation
             else if (state == iPopupState.proc)
                 show(false);            
         }        
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            inventory.getDetailUIObject().GetComponent<InventoryDetailUI>().show(true);
+        }
         paint(Time.deltaTime);        
     }
     public void init(Inventory inventory)

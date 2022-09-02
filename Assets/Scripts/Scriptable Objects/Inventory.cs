@@ -7,6 +7,7 @@ public class Inventory : ScriptableObject
 {
     [SerializeField] private List<InventoryItemContainer> items = new List<InventoryItemContainer>();
     [SerializeField] private InventoryUI inventoryUIPrefab;
+    [SerializeField] private InventoryDetailUI inventoryDetailUIrefab;
     private InventoryUI _inventoryUI;
     private InventoryUI inventoryUI
     {
@@ -19,27 +20,38 @@ public class Inventory : ScriptableObject
             return _inventoryUI;
         }
     }
+    private InventoryDetailUI _detailUI;
+    private InventoryDetailUI detailUI
+    {
+        get
+        {
+            if (!_detailUI)
+            {
+                _detailUI = Instantiate(inventoryDetailUIrefab, UIManager.instance.canvas.transform);
+            }
+            return _detailUI;
+        }
+    }
+
     private Dictionary<InventoryItem, int> itemToCountMap = new Dictionary<InventoryItem, int>();
     private PlayerEquipmentController playerEquipment;
-
+    
     public void init(PlayerEquipmentController playerEquipment)
     {
         this.playerEquipment = playerEquipment;
 
         RectTransform rt;
         rt = inventoryUI.GetComponent<RectTransform>();
-        rt.localPosition = new Vector2(-350, -55);
+        rt.localPosition = new Vector2(-350, -60);
+
+        rt = detailUI.GetComponent<RectTransform>();
+        rt.localPosition = new Vector2(400, -60);
         for (int i = 0; i < items.Count; i++)
         {
             itemToCountMap.Add(items[i].getItem(), items[i].getItemCount());
         }
         inventoryUI.init(this);
-    }
-    public void openUI()
-    {        
-        inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
-
-        //animation
+        detailUI.init(this);
     }
     public void assignItem(InventoryItem item)
     {
@@ -87,5 +99,10 @@ public class Inventory : ScriptableObject
     public InventoryUI getUIObject()
     {
         return inventoryUI;
+    }
+
+    public InventoryDetailUI getDetailUIObject()
+    {
+        return detailUI;
     }
 }

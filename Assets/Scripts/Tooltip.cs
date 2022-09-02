@@ -22,14 +22,9 @@ public class Tooltip : iPopupAnimation
         }
     }
     private void Awake()
-    {
+    {        
         _instance = this;
 
-        if (tooltipGo == null)
-        {
-            tooltipGo = Resources.Load<GameObject>("Prefabs/Tooltip");
-            Instantiate(tooltipGo, UIManager.instance.canvas.transform);
-        }
         text = GetComponentInChildren<TMP_Text>();
         rt = GetComponent<RectTransform>();
     }
@@ -50,15 +45,26 @@ public class Tooltip : iPopupAnimation
     private void Update()
     {
         paint(Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.P))
+            showTooltip(Input.mousePosition);
     }
-    public void setContent(string content)
+    public void init()
     {
-        text.text = content;
+        show(false);
+
+        //popup
+        transform.localScale = Vector3.zero;
+        methodOpen = null;
+        methodClose = null;
     }
 
     public void showTooltip(Vector2 position)
     {
         show(true);
+        print(position);
+        openPoint = position;
+        closePoint = position;
     }
 
     public void hideTooltip()
