@@ -32,6 +32,7 @@ public class AnimationsUI : MonoBehaviour
         for(int i=0;i<3;i++)
         {
             buttons[i].GetComponentInChildren<TMP_Text>().text = "Animation" + i;
+            buttons[i].onClick.AddListener(() => UIManager.instance.soundPlay(0));
         }
         //for(int i = 0; i < 3; i++)
         //{            

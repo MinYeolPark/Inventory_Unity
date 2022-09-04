@@ -13,6 +13,10 @@ public abstract class InventoryItem : ScriptableObject
     [SerializeField] private Vector3 itemLocalPosition;
     [SerializeField] private Vector3 itemLocalRotation;
 
+    public string getDescription()
+    {
+        return description;
+    }
     public Sprite getSprite()
     {
         if (itemSprite != null)

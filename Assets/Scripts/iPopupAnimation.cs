@@ -128,8 +128,11 @@ public class iPopupAnimation : MonoBehaviour
 			{
 				aniDt = _aniDt;
 				state = iPopupState.proc;
+				if (methodOpen != null)
+					methodOpen(this);
 			}
 			float r = aniDt / _aniDt;
+			transform.localScale = Vector3.one;
 			position = openPoint * (1 - r) + closePoint * r;
 			gameObject.transform.localPosition = position;
 		}
@@ -145,6 +148,11 @@ public class iPopupAnimation : MonoBehaviour
 			{
 				aniDt = _aniDt;
 				bShow = false;
+				if (methodClose != null)
+				{
+					methodClose(this);
+					return;
+				}
 			}
 
 			float r = 1f - aniDt / _aniDt;// alpha 1 -> 0
@@ -161,6 +169,8 @@ public class iPopupAnimation : MonoBehaviour
 			{
 				aniDt = _aniDt;
 				state = iPopupState.proc;
+				if (methodOpen != null)
+					methodOpen(this);
 			}
 			float r = aniDt / _aniDt;
 			position = openPoint * (1 - r) + closePoint * r;
@@ -183,6 +193,11 @@ public class iPopupAnimation : MonoBehaviour
 			{
 				aniDt = _aniDt;
 				bShow = false;
+				if (methodClose != null)
+				{
+					methodClose(this);
+					return;
+				}
 			}
 
 			float r = 1f - aniDt / _aniDt;// alpha 1 -> 0
@@ -201,6 +216,8 @@ public class iPopupAnimation : MonoBehaviour
 			{
 				aniDt = _aniDt;
 				state = iPopupState.proc;
+				if (methodOpen != null)
+					methodOpen(this);
 			}
 			float r = aniDt / _aniDt;
 			position = openPoint * (1 - r) + closePoint * r;
@@ -226,6 +243,11 @@ public class iPopupAnimation : MonoBehaviour
 			{
 				aniDt = _aniDt;
 				bShow = false;
+				if (methodClose != null)
+				{
+					methodClose(this);
+					return;
+				}
 			}
 
 			float r = 1f - aniDt / _aniDt;// alpha 1 -> 0

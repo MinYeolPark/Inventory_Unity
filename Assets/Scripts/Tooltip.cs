@@ -6,10 +6,11 @@ using TMPro;
 public class Tooltip : iPopupAnimation
 {
     public float timer = 0f;
-    public float sensitivity = 0.25f;
+    public float sensitivity = 0.4f;
     [SerializeField] private GameObject tooltipGo;
     [SerializeField] private TMP_Text text;
     [SerializeField] private RectTransform rt;
+    [SerializeField] private RectTransform parentRt;
 
     private static Tooltip _instance;
     public static Tooltip instance
@@ -27,6 +28,7 @@ public class Tooltip : iPopupAnimation
 
         text = GetComponentInChildren<TMP_Text>();
         rt = GetComponent<RectTransform>();
+        parentRt = UIManager.instance.canvas.GetComponent<RectTransform>();
     }
 
     public void Start()
@@ -35,7 +37,7 @@ public class Tooltip : iPopupAnimation
         state = iPopupState.close;
         openPoint = new Vector2(0, 0);
         closePoint = new Vector2(0, 0);
-        _aniDt = 0.5f;
+        _aniDt = 0.25f;
         aniDt = 0;
         selected = -1;
         bShow = false;
@@ -45,9 +47,6 @@ public class Tooltip : iPopupAnimation
     private void Update()
     {
         paint(Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.P))
-            showTooltip(Input.mousePosition);
     }
     public void init()
     {
@@ -55,20 +54,44 @@ public class Tooltip : iPopupAnimation
 
         //popup
         transform.localScale = Vector3.zero;
-        methodOpen = null;
-        methodClose = null;
+        methodOpen = cbOpen;
+        methodClose = cbClose;
     }
 
     public void showTooltip(Vector2 position)
     {
-        show(true);
-        print(position);
-        openPoint = position;
-        closePoint = position;
+        if (state != iPopupState.close)
+            return;
+
+        timer += Time.deltaTime;
+        if (timer > sensitivity)
+        {
+            transform.SetAsLastSibling();
+            openPoint = new Vector3(position.x + rt.sizeDelta.x / 2, position.y - rt.sizeDelta.y / 2);
+            closePoint = new Vector3(position.x + rt.sizeDelta.x / 2, position.y + rt.sizeDelta.y / 2);
+            timer = 0f;
+            show(true);            
+        }
     }
 
     public void hideTooltip()
-    {
+    {        
+        if (state != iPopupState.proc)
+            return;
+                
         show(false);
+    }
+
+    public void setContents(InventoryItem item)
+    {
+        text.text = item.getName();
+    }
+    public void cbOpen(iPopupAnimation pop)
+    {
+        //print("on Open" + pop.state);
+    }
+    public void cbClose(iPopupAnimation pop)
+    {
+        //print("on CLose " + pop.state);
     }
 }

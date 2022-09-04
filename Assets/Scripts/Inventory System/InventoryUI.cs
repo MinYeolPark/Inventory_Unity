@@ -38,10 +38,6 @@ public class InventoryUI : iPopupAnimation
             else if (state == iPopupState.proc)
                 show(false);            
         }        
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            inventory.getDetailUIObject().GetComponent<InventoryDetailUI>().show(true);
-        }
         paint(Time.deltaTime);        
     }
     public void init(Inventory inventory)
@@ -54,6 +50,10 @@ public class InventoryUI : iPopupAnimation
         glg.constraintCount = maxX;
 
         Button[] btns = GetComponentsInChildren<Button>();
+        foreach (var item in btns)
+        {
+            item.onClick.AddListener(() => UIManager.instance.soundPlay(0));
+        }
         btns[0].onClick.AddListener(() => show(false));
         btns[1].onClick.AddListener(arrangement);
         btns[1].GetComponentInChildren<TMP_Text>().text = "Arrangement";
@@ -138,7 +138,6 @@ public class InventoryUI : iPopupAnimation
         itemToSlotMap.Remove(item);        
         arrangement();        
     }
-
     //////////////////////////////////////////////    
     //Sorting
     //////////////////////////////////////////////
@@ -170,7 +169,11 @@ public class InventoryUI : iPopupAnimation
 
     public void openDetail()
     {
+        InventoryDetailUI detail = inventory.getDetailUIObject().GetComponent<InventoryDetailUI>();
 
+        if (detail.state != iPopupState.close)
+            return;
+        detail.show(true);
     }
     //////////////////////////////////////////////
     //Inputs
@@ -178,8 +181,15 @@ public class InventoryUI : iPopupAnimation
     public void cbMouse(iKeystate stat, Vector3 point)
     {
         if (state != iPopupState.proc) return;          //Prevent inputs except state.proc
-
-        if (stat == iKeystate.Began)
+        if (stat == iKeystate.Enter)
+        {
+            onEnter(stat, point);
+        }
+        else if (stat == iKeystate.Exit)
+        {
+            onExit(stat, point);
+        }
+        else if (stat == iKeystate.Began)
         {
             onClick(stat, point);
         }
@@ -196,6 +206,33 @@ public class InventoryUI : iPopupAnimation
             onDoubleClick(stat, point);
         }
     }
+    public void onEnter(iKeystate stat, Vector2 point)
+    {        
+        var itemsMap = inventory.getAllItemsMap();
+        foreach (var item in itemsMap)
+        {
+            if (item.Value == 0)
+                continue;
+            if (itemToSlotMap[item.Key].containPointSlot(point))
+            {
+                Tooltip.instance.setContents(item.Key);
+                break;
+            }
+        }
+
+        Vector2 anchoredPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+            (UIManager.instance.canvas.GetComponent<RectTransform>()
+            , point, null, out anchoredPos); // null = UIManager.instance.canvas.renderMode == RenderMode.ScreenSpaceOverlay?
+
+        Tooltip.instance.showTooltip(anchoredPos);
+    }
+
+    public void onExit(iKeystate stat, Vector2 point)
+    {        
+        Tooltip.instance.hideTooltip();
+    }
+
     public void onClick(iKeystate stat, Vector2 point)
     {
         if (selectedItem != null) return;
@@ -209,6 +246,10 @@ public class InventoryUI : iPopupAnimation
             if (itemToSlotMap[item.Key].containPointSlot(point))
             {
                 selectedItem = itemToSlotMap[item.Key];
+
+                InventoryDetailUI detail = inventory.getDetailUIObject().GetComponent<InventoryDetailUI>();
+                detail.set(item.Key);
+                detail.show(true);
                 break;
             }
         }
@@ -276,5 +317,5 @@ public class InventoryUI : iPopupAnimation
     void cbInventoryClose(iPopupAnimation pop)
     {
         print("inventory closed");
-    }
+    }    
 }

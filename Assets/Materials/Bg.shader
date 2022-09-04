@@ -5,7 +5,7 @@ Shader "Unlit/Bg"
         _MainTex ("Texture", 2D) = "white" {}
         _TintColor("Tint Color", Color) = (1,1,1,1)
         //_Transparency("Transparency", Range(0.0, 1)) = 0.5
-        _DotSize("DotSize", Range(0.0, 15.0)) = 0
+        //_DotSize("DotSize", Range(0.0, 15.0)) = 0
 
         _BoundColor("Bound Color", Color) = (0,0.5843137254901961,1,1)
         _BgColor("Background Color", Color) = (0.1176470588235294,0,0.5882352941176471,1)
@@ -55,7 +55,7 @@ Shader "Unlit/Bg"
             float4 _MainTex_ST;
             float4 _TintColor;
             //float _Transparency;
-            float _DotSize;
+            //float _DotSize;
 
 
 

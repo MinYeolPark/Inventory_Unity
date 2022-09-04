@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c7981beb2ffed4093edf957dc25215, type: 3}
   m_Name: Great Sword
   m_EditorClassIdentifier: 
-  description: Great Sword. Only can use both hand
+  description: ATTK + 25
   itemPrefab: {fileID: 6609676190391383634, guid: 690fd715705725148b2623bb857b060f, type: 3}
   itemSprite: {fileID: 21300000, guid: 9276caf48ecca564d8c51a81a79021f3, type: 3}
-  itemName: GreatSword
+  itemName: Great Sword
   itemLocalPosition: {x: -0.4, y: 0.2, z: 0}
   itemLocalRotation: {x: 0, y: 0, z: 65}
   overrideController: {fileID: 22100000, guid: 56cce341c28d38d4fbb101f66fbaed5b, type: 2}

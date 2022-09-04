@@ -51,7 +51,7 @@ public class Inventory : ScriptableObject
             itemToCountMap.Add(items[i].getItem(), items[i].getItemCount());
         }
         inventoryUI.init(this);
-        detailUI.init(this);
+        detailUI.init(this);        
     }
     public void assignItem(InventoryItem item)
     {

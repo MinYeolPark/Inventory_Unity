@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections;
+
 public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private RectTransform rectTransform;

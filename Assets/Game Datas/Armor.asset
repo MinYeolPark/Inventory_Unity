@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295d9e1410e45954a900d6b4d476d364, type: 3}
   m_Name: Armor
   m_EditorClassIdentifier: 
-  description: Gold Armor!!
+  description: DEF + 10
   itemPrefab: {fileID: 5287066625456506921, guid: 941fa6edc64ce0544a9133bd3449a2ca, type: 3}
   itemSprite: {fileID: 21300000, guid: f37724a2a5ba44e418da3e6e75b8aefa, type: 3}
   itemName: Armor
-  itemLocalPosition: {x: 0, y: -1.5, z: 0.1}
+  itemLocalPosition: {x: 0, y: -1.5, z: 0.07}
   itemLocalRotation: {x: 0, y: 0, z: 0}
   armorType: 1

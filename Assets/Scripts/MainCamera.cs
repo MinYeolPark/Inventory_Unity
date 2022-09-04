@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class MainCamera : MonoBehaviour
 {
     public static MainCamera mainCamera;
@@ -66,9 +66,7 @@ public class MainCamera : MonoBehaviour
                 tapTimer = Time.time;
                 isClicked = true;
             }
-
             Vector3 v = Input.mousePosition;
-            Debug.LogFormat($"Moved  Vector2 = {v.x},{v.y}");
             drag = true;
             prevV = Input.mousePosition;// 누르자 말자 Moved 안들어오게 방지
             if (methodMouse != null)
@@ -93,6 +91,21 @@ public class MainCamera : MonoBehaviour
             if (methodMouse != null)
                 methodMouse(iKeystate.Moved, v);
         }
+#if true
+
+        if(isMouseOverUI())
+        {
+            Vector3 v = Input.mousePosition;
+            if (methodMouse != null)
+                methodMouse(iKeystate.Enter, v);
+        }
+        else
+        {
+            Vector3 v = Input.mousePosition;
+            if (methodMouse != null)
+                methodMouse(iKeystate.Exit, v);
+        }
+#endif
     }
     void updateWheel()
     {
@@ -152,10 +165,31 @@ public class MainCamera : MonoBehaviour
             Camera.main.rect = new Rect(0, y, 1, h);
         }
     }
+
+    bool isMouseOverUI()
+    {        
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+
+        List<RaycastResult> result = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, result);
+        for (int i = 0; i < result.Count; i++)
+        {
+            if (result[i].gameObject.GetComponent<InventorySlot>() == null
+                || result[i].gameObject.GetComponent<InventorySlot>().getItemCount() == 0)
+            {
+                result.RemoveAt(i);
+                i--;
+            }
+        }
+        return result.Count > 0;
+    }    
 }
 public enum iKeystate
 {
-    Began = 0,  // pressed
+    Enter = 0,
+    Exit,
+    Began,      // pressed
     Moved,      // moved
     Ended,      // released
     DoublieClick,

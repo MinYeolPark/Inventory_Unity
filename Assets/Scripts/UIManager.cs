@@ -34,9 +34,11 @@ public class UIManager : MonoBehaviour
             return _tooltip;
         }
     }
+
+    [SerializeField] private AudioClip[] sounds;
     private void Awake()
     {
-        _instance = this;        
+        _instance = this;
     }
 
     public Canvas canvas;
@@ -84,7 +86,16 @@ public class UIManager : MonoBehaviour
         rt.sizeDelta = new Vector2(512, 512);
         rt.anchoredPosition = new Vector2(0, 0);
 
+        //Sounds
+        sounds = Resources.LoadAll<AudioClip>("Sound");
+
         //Tooltip
         tooltip.init();
+    }
+
+    public void soundPlay(int index)
+    {
+        AudioSource src = GetComponent<AudioSource>();
+        src.PlayOneShot(sounds[index]);        
     }
 }

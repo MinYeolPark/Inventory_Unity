@@ -77,7 +77,7 @@ Material:
     - _Transparency: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _border: 1
+    - _border: 5
     - _circleSizePercent: 100
     m_Colors:
     - _BgColor: {r: 0, g: 0, b: 0, a: 0}
