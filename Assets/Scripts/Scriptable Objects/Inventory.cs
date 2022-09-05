@@ -34,7 +34,7 @@ public class Inventory : ScriptableObject
     }
 
     private Dictionary<InventoryItem, int> itemToCountMap = new Dictionary<InventoryItem, int>();
-    private PlayerEquipmentController playerEquipment;
+    public PlayerEquipmentController playerEquipment;
     
     public void init(PlayerEquipmentController playerEquipment)
     {
@@ -54,9 +54,12 @@ public class Inventory : ScriptableObject
         detailUI.init(this);        
     }
     public void assignItem(InventoryItem item)
-    {
-        Debug.Log(item + "assigned");
+    {        
         item.assignItemToPlayer(playerEquipment);        
+    }
+    public void resignItem(InventoryItem item)
+    {
+        item.resignItemToPlayer(playerEquipment);
     }
     public Dictionary<InventoryItem, int> getAllItemsMap()
     {
@@ -80,20 +83,16 @@ public class Inventory : ScriptableObject
         int currentItemCount;
         if (itemToCountMap.TryGetValue(item, out currentItemCount))
         {
-            itemToCountMap[item] = currentItemCount - count;
-            Debug.Log(itemToCountMap[item]);
+            itemToCountMap[item] = currentItemCount - count;            
             if (currentItemCount - count <= 0)
             {
                 inventoryUI.destroySlot(item);
+                itemToCountMap.Remove(item);                
             }
             else
             {
                 inventoryUI.updateSlot(item, currentItemCount - count);
             }
-        }
-        else
-        {
-            Debug.Log(string.Format("Cant remove {0}. This item is not in the inventory"));
         }
     }
     public InventoryUI getUIObject()

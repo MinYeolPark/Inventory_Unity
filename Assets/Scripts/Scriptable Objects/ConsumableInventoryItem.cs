@@ -10,7 +10,14 @@ public class ConsumableInventoryItem : InventoryItem
     {
         playerEquipment.assignConsumable(this);
     }
-
+    public override void resignItemToPlayer(PlayerEquipmentController playerEquipment)
+    {
+        playerEquipment.resignConsumable(this);
+    }
+    public override string getType()
+    {
+        return "POTION";
+    }
     public int getRecoveryPoints()
     {
         return recoveryPoint;

@@ -11,6 +11,7 @@ public class PlayerEquipmentController : MonoBehaviour
 
     [Header("Animation Components")]    
     [SerializeField] private Animator animator;
+    [SerializeField] private RuntimeAnimatorController initAnimator;
     [SerializeField] private Animations animations;
 
     [Header("Anchors")]
@@ -35,9 +36,10 @@ public class PlayerEquipmentController : MonoBehaviour
         _hp = 1000;
         hp = _hp;
         animator = GetComponent<Animator>();
+        initAnimator = animator.runtimeAnimatorController;
         animations = Util.createPrefabs<Animations>("Animations");        
-        UIManager.instance.load();       
 
+        //GameManager
         inventory.init(this);        
         animations.init(this);
     }
@@ -59,7 +61,21 @@ public class PlayerEquipmentController : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = new Quaternion(0, 180, 0, 0);
     }
-
+    public void resignArmor(ArmorInventoryItem armor)
+    {
+        switch (armor.armorType)
+        {
+            case ArmorType.HELMET:
+                destroyIfNotNull(currentHelmetObj);
+                currentHelmetObj = null;
+                break;
+            case ArmorType.TOP:
+                destroyIfNotNull(currentArmorObj);
+                currentArmorObj = null;
+                break;
+        }
+        animator.runtimeAnimatorController = initAnimator;
+    }
     public void assignWeapon(WeaponInventoryItem weapon)
     {        
         switch (weapon.hand)
@@ -86,12 +102,24 @@ public class PlayerEquipmentController : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = new Quaternion(0, 180, 0, 0);
     }
+    public void resignWeapon(WeaponInventoryItem weapon)
+    {
+        destroyIfNotNull(currentLeftHandObj);
+        destroyIfNotNull(currentRighHandObj);
+        currentLeftHandObj = null;
+        currentRighHandObj = null;
 
+        animator.runtimeAnimatorController = initAnimator;
+    }
     public void assignConsumable(ConsumableInventoryItem consumable)
     {
         inventory.removeItem(consumable, 1);
         hp += consumable.getRecoveryPoints();
         Debug.Log($"Player hp = {hp}/{_hp}");
+    }
+    public void resignConsumable(ConsumableInventoryItem consumable)
+    {
+//        print("consumable item resign");
     }
     private void destroyIfNotNull(GameObject obj)
     {

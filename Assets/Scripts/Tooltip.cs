@@ -6,7 +6,7 @@ using TMPro;
 public class Tooltip : iPopupAnimation
 {
     public float timer = 0f;
-    public float sensitivity = 0.4f;
+    public float sensitivity = 0.2f;
     [SerializeField] private GameObject tooltipGo;
     [SerializeField] private TMP_Text text;
     [SerializeField] private RectTransform rt;

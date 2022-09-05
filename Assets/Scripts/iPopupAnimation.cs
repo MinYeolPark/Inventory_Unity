@@ -48,11 +48,11 @@ public class iPopupAnimation : MonoBehaviour
         {
 			bShow = true;
 			state = iPopupState.open;
-        }
+		}
 		else
         {			
 			state = iPopupState.close;
-        }
+		}
 		aniDt = 0f;		
     }
 

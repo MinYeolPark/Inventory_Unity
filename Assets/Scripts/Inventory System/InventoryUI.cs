@@ -10,6 +10,7 @@ public class InventoryUI : iPopupAnimation
     [SerializeField] private int maxX = 4;
     [SerializeField] private int maxY = 5;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private InventoryDetailUI detail;
     [SerializeField] private Transform slotsParent;
     [SerializeField] private InventorySlot slotPrefab;
     [SerializeField] private InventorySlot selectedItem;
@@ -31,36 +32,55 @@ public class InventoryUI : iPopupAnimation
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             if (bShow == false)
+            {
                 show(true);
+
+                UIManager.instance.soundPlay(SND.snd_open);
+            }
             else if (state == iPopupState.proc)
-                show(false);            
-        }        
+            {                
+                detail.show(false);
+                show(false);
+
+                Tooltip.instance.hideTooltip();
+                UIManager.instance.soundPlay(SND.snd_close);
+            }
+
+        }
         paint(Time.deltaTime);        
     }
     public void init(Inventory inventory)
-    {
-        //#issue adjust
+    {        
         this.inventory = inventory;
         GridLayoutGroup glg = UIManager.instance.canvas.GetComponentInChildren<GridLayoutGroup>();
         slotsParent = glg.transform;
         glg.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         glg.constraintCount = maxX;
 
-        Button[] btns = GetComponentsInChildren<Button>();
-        foreach (var item in btns)
-        {
-            item.onClick.AddListener(() => UIManager.instance.soundPlay(0));
-        }
+        detail = inventory.getDetailUIObject().GetComponent<InventoryDetailUI>();        
+
+        Button[] btns = GetComponentsInChildren<Button>();        
         btns[0].onClick.AddListener(() => show(false));
         btns[1].onClick.AddListener(arrangement);
         btns[1].GetComponentInChildren<TMP_Text>().text = "Arrangement";
         btns[2].onClick.AddListener(sortByName);
         btns[2].GetComponentInChildren<TMP_Text>().text = "Sort By Name";
-        btns[3].onClick.AddListener(openDetail);
-        btns[3].GetComponentInChildren<TMP_Text>().text = "Open Detail";
+        btns[3].onClick.AddListener(removeAll);
+        btns[3].GetComponentInChildren<TMP_Text>().text = "Remove All";
+
+        for(int i=0;i<btns.Length;i++)
+        {
+            if(i==0)
+            {
+                btns[i].onClick.AddListener(() => UIManager.instance.soundPlay(SND.snd_close));                
+                btns[i].onClick.AddListener(() => detail.show(false));                
+                continue;
+            }
+            btns[i].onClick.AddListener(() => UIManager.instance.soundPlay(SND.snd_open));
+        }
         ///////////////////////////////////////////////////
 
         MainCamera.methodMouse = cbMouse;
@@ -68,14 +88,13 @@ public class InventoryUI : iPopupAnimation
         foreach (var kvp in itemsMap)
         {
             createOrUpdateSlot(inventory, kvp.Key, kvp.Value);
-        }
+        }        
 
         //create empty Slots
         for (int i = 0; i < maxX * maxY - itemToSlotMap.Count; i++)
         {
             var empty = createSlot(inventory, null, 0);            
         }
-
         //popup
         transform.localScale = Vector3.zero;
         methodOpen = cbInventoryOpen;
@@ -166,15 +185,16 @@ public class InventoryUI : iPopupAnimation
             n++;            
         }        
     }
-
-    public void openDetail()
+    
+    public void removeAll()
     {
-        InventoryDetailUI detail = inventory.getDetailUIObject().GetComponent<InventoryDetailUI>();
-
-        if (detail.state != iPopupState.close)
-            return;
-        detail.show(true);
+        foreach (var item in inventory.getAllItemsMap().Keys)
+        {
+            inventory.resignItem(item);
+        }        
+        UIManager.instance.soundPlay(SND.snd_open);
     }
+
     //////////////////////////////////////////////
     //Inputs
     //////////////////////////////////////////////
@@ -237,17 +257,23 @@ public class InventoryUI : iPopupAnimation
     {
         if (selectedItem != null) return;
 
-        var itemsMap = inventory.getAllItemsMap();
+        var itemsMap = inventory.getAllItemsMap();        
         foreach (var item in itemsMap)
-        {
+        {            
             if (item.Value==0)
+            {
+                itemsMap.Remove(item.Key);
+                selectedItem = null;
+                                
+                //detail.set(null);
+                detail.show(false);
                 continue;
+            }
 
             if (itemToSlotMap[item.Key].containPointSlot(point))
             {
                 selectedItem = itemToSlotMap[item.Key];
 
-                InventoryDetailUI detail = inventory.getDetailUIObject().GetComponent<InventoryDetailUI>();
                 detail.set(item.Key);
                 detail.show(true);
                 break;

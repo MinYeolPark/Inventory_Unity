@@ -60,5 +60,8 @@ public abstract class InventoryItem : ScriptableObject
         return Quaternion.Euler(itemLocalRotation);
     }
 
+    public abstract string getType();
+   
     public abstract void assignItemToPlayer(PlayerEquipmentController playerEquipment);
+    public abstract void resignItemToPlayer(PlayerEquipmentController playerEquipment);
 }

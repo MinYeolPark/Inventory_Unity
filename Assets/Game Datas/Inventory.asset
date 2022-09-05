@@ -27,5 +27,12 @@ MonoBehaviour:
     count: 1
   - item: {fileID: 11400000, guid: 7299c37969bb81d4d9eb979d0a37b01b, type: 2}
     count: 1
+  - item: {fileID: 11400000, guid: 31af094d2db23ae4aa12955170be4193, type: 2}
+    count: 1
+  - item: {fileID: 11400000, guid: 20ad938a0b6a61c4c85e89a29c010f21, type: 2}
+    count: 1
+  - item: {fileID: 11400000, guid: bdc21023c81fef84d8d2e18f56f615d6, type: 2}
+    count: 1
   inventoryUIPrefab: {fileID: 1209041800702119722, guid: 1fd91b496f3e7e144b22abc60c32fb1b, type: 3}
   inventoryDetailUIrefab: {fileID: 390658252417491978, guid: 6a698d50a103bf3449fb9f1c37433a42, type: 3}
+  playerEquipment: {fileID: 0}

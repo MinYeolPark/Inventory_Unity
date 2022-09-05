@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 public class InventoryDetailUI : iPopupAnimation
 {
-    Inventory inventory;
+    private Inventory inventory;
+    private InventoryItem curItem;
     [SerializeField] private Image sourceImg;
     [SerializeField] private Image targetImg;
     [SerializeField] private TMP_Text headerText;
@@ -13,7 +14,7 @@ public class InventoryDetailUI : iPopupAnimation
     {
         style = iPopupStyle.move;
         state = iPopupState.close;
-        openPoint = new Vector2(MainCamera.devWidth / 2, -60);
+        openPoint = new Vector2(MainCamera.devWidth, -60);
         closePoint = new Vector2(400, -60);
         _aniDt = 0.2f;
         aniDt = 0;
@@ -37,12 +38,17 @@ public class InventoryDetailUI : iPopupAnimation
 
         this.inventory = inventory;
         btn = inventory.getDetailUIObject().GetComponentInChildren<Button>();
-
+        btn.onClick.AddListener(() => onAssignButton());
     }
     public void set(InventoryItem item)
-    {
+    {      
+        curItem = item;
         sourceImg.sprite = item.getSprite();
         headerText.text = item.getName();
-        contentText.text = item.getDescription();        
+        contentText.text = item.getDescription() + "\nType: " + item.getType();       
+    }
+    public void onAssignButton()
+    {
+        curItem.assignItemToPlayer(inventory.playerEquipment);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 public class MainCamera : MonoBehaviour
-{
+{  
     public static MainCamera mainCamera;
 
     public static int devWidth = 1280, devHeight = 720;     //HD
@@ -22,13 +22,11 @@ public class MainCamera : MonoBehaviour
     bool drag = false;
 
     PlayerEquipmentController player;
-    public float smoothSpeed = 0.125f;
+    public float smoothSpeed = 0.1f;
     public Vector3 offset;
     void Start()
     {
-        mainCamera = this;
-        player = FindObjectOfType<PlayerEquipmentController>();
-        offset = transform.position - player.transform.position;
+        mainCamera = this;        
     }
 
     void Update()
@@ -39,14 +37,27 @@ public class MainCamera : MonoBehaviour
         //updateKeyboard();
         //updateWheel();
     }
+    private void OnPreRender()
+    {
+        GL.Clear(true, true, Color.clear);
+    }
+    private void OnPostRender()
+    {
+        GL.Clear(true, true, Color.clear);
+    }
 
     private void LateUpdate()
     {
-        Vector3 targetPosition = player.transform.position + offset;
+        Vector3 targetPosition = player.gameObject.transform.position + offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
         transform.position = smoothedPosition;
     }
 
+    public void init(PlayerEquipmentController player)
+    {
+        this.player = player;
+        offset = transform.position - player.transform.position;        
+    }
     void updateMouse()
     {
         if (isClicked && Time.time - tapTimer > tapSensitivity)
@@ -56,6 +67,7 @@ public class MainCamera : MonoBehaviour
         bool doubeClk = false;
         if (Input.GetMouseButtonDown(btn))
         {
+
             if (isClicked && (Time.time - tapTimer) < tapSensitivity)
             {
                 doubeClk = true;
@@ -69,6 +81,10 @@ public class MainCamera : MonoBehaviour
             Vector3 v = Input.mousePosition;
             drag = true;
             prevV = Input.mousePosition;// 누르자 말자 Moved 안들어오게 방지
+
+            UIManager.instance.soundPlay(SND.snd_click);
+            //UIManager.instance.particlePlay(PTC.ptc_click, v);
+
             if (methodMouse != null)
                 methodMouse(doubeClk ? iKeystate.DoublieClick : iKeystate.Began, v);
         }
@@ -183,7 +199,13 @@ public class MainCamera : MonoBehaviour
             }
         }
         return result.Count > 0;
-    }    
+ 
+    }
+    public static Rect RectTransformToScreenSpace(RectTransform transform)
+    {
+        Vector2 size = Vector2.Scale(transform.rect.size, transform.lossyScale);
+        return new Rect((Vector2)transform.position - (size * 0.5f), size);
+    }
 }
 public enum iKeystate
 {

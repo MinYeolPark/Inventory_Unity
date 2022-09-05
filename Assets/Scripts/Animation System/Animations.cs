@@ -28,7 +28,7 @@ public class Animations : MonoBehaviour
     public void openUI()
     {
         animationsUI.gameObject.SetActive(!animationsUI.gameObject.activeSelf);
-        animationsUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 260);
+        animationsUI.GetComponent<RectTransform>().localPosition = new Vector2(0, 250);
         animationsUI.init(this);
     }
 

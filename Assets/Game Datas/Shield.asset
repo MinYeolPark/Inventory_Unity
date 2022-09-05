@@ -20,4 +20,4 @@ MonoBehaviour:
   itemLocalRotation: {x: -25.8, y: 180, z: -90}
   overrideController: {fileID: 22100000, guid: 460fc91f8c0cb9d43a51ec2435b366ee, type: 2}
   hand: 0
-  weaponType: 3
+  weaponType: 4

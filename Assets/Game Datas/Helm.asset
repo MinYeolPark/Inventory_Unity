@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: DEF +10
   itemPrefab: {fileID: 8869293982486011090, guid: 2bce92e196c9eac4d981d46d2fdfda99, type: 3}
-  itemSprite: {fileID: 21300000, guid: a5cc0cdc11068c64ba7c980e43719317, type: 3}
+  itemSprite: {fileID: 21300000, guid: 77b090e0dd0f86c47a6e030e30d9cc67, type: 3}
   itemName: Helm
   itemLocalPosition: {x: 0, y: -0.22, z: -0.045}
   itemLocalRotation: {x: 0, y: 0, z: 0}

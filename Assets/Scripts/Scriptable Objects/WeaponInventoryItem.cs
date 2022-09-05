@@ -10,6 +10,15 @@ public class WeaponInventoryItem : InventoryItem
     {
         playerEquipment.assignWeapon(this);
     }
+
+    public override void resignItemToPlayer(PlayerEquipmentController playerEquipment)
+    {
+        playerEquipment.resignWeapon(this);
+    }
+    public override string getType()
+    {
+        return weaponType.ToString();
+    }
 }
 public enum Hand { LEFT, RIGHT, BOTH };
-public enum WeaponType { NONE, AXE, ONEHANDSWORD, GREATSWORD, SHIELD };
+public enum WeaponType { NONE, AXE, SWORD, GREATSWORD, SHIELD };
