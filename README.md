@@ -1,7 +1,6 @@
 <img src="https://img.shields.io/badge/unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white"/>
 <h2 align="center"><b>📚 인벤토리📚</b></h2>
 
-[![Video Label](https://img.youtube.com/vi/yaxyScFspQs/0.jpg](https://youtu.be/yaxyScFspQs)
 ![image](https://user-images.githubusercontent.com/67354549/191324188-b7c67866-7d53-4cb3-a1c9-1801b2858ec3.png)
 
 
